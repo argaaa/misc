@@ -65,6 +65,8 @@
   .quote-mark{ color:var(--gold); font-weight:800; }
   .rule{ height:1px; background:var(--line); width:100%; margin:16px 0; }
   .foot{ margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end; font-size:10.5px; color:var(--ink-dim); letter-spacing:.05em; }
+  .foot a{ color:inherit; text-decoration:none; border-bottom:1px dotted var(--ink-dim); }
+  .foot a:hover{ color:var(--ember); border-bottom-color:var(--ember); }
   .foot .src{ text-transform:uppercase; }
 
   /* Slide 1 */
@@ -130,7 +132,7 @@
 <div class="deck"><div class="stage" id="stage">
 
   <section class="slide active" id="slide-1">
-    <div class="idx">01 / 12</div>
+    <div class="idx">01 / 15</div>
     <svg width="360" height="540" viewBox="0 0 360 540" style="position:absolute; right:0; top:0; z-index:0;">
       <path d="M40 460 L120 300 L160 360 L230 180 L270 260 L360 60 L360 540 L40 540 Z" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
       <path d="M40 460 L120 300 L160 360 L230 180 L270 260 L360 60" fill="none" stroke="var(--ink-dim)" stroke-width="1.5"/>
@@ -145,15 +147,14 @@
     </svg>
     <div class="ghostnum">01</div>
     <div class="s1-wrap">
-      <div class="s1-eyebrow">A Summary — Felix Siauw</div>
       <h1 class="s1-title">The <em>silent damage</em> of a frictionless life.</h1>
       <p class="s1-sub">Modern comfort feels harmless. It isn't. Science and 14 centuries of Islamic practice agree on what it's quietly costing you — and the fix.</p>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika... — Felix Siauw</span><span class="src">youtu.be/hW28-natm4s</span></div>
+    <div class="foot"><span><a href="https://youtu.be/hW28-natm4s" target="_blank" rel="noopener noreferrer">Inspired by Felix Siauw — "Kesusahan Itu Bagus, Ketika..."</a></span><span class="src">01/15</span></div>
   </section>
 
   <section class="slide" id="slide-2">
-    <div class="idx">02 / 12</div>
+    <div class="idx">02 / 15</div>
     <div class="ghostnum">02</div>
     <div class="eyebrow">Prologue · The Comfort Trap</div>
     <h2 class="headline">We live better than kings — and it's making us weaker.</h2>
@@ -161,11 +162,11 @@
     <div class="rule"></div>
     <div class="bignum">ZERO</div>
     <div class="label">frictions left in a day spent in climate-controlled rooms, fed by delivery, guided by GPS.</div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Prologue — 02/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Prologue — 02/15</span></div>
   </section>
 
   <section class="slide" id="slide-3">
-    <div class="idx">03 / 12</div>
+    <div class="idx">03 / 15</div>
     <div class="ghostnum">03</div>
     <div class="eyebrow">Prologue · The Individual Loop</div>
     <h2 class="headline">The paradox: struggle builds the comfort that unravels it.</h2>
@@ -199,11 +200,11 @@
         <li><b>4 · Fragility</b> — comfort left unchecked, erodes it. Back to 1.</li>
       </ul>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Prologue — 03/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Prologue — 03/15</span></div>
   </section>
 
   <section class="slide" id="slide-4">
-    <div class="idx">04 / 12</div>
+    <div class="idx">04 / 15</div>
     <div class="ghostnum">04</div>
     <div class="eyebrow">Prologue · The Generational Loop</div>
     <h2 class="headline">Zoom out, and the pattern repeats across generations.</h2>
@@ -240,11 +241,11 @@
         <div class="tag">cf. Strauss–Howe generational theory</div>
       </div>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Prologue — 04/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Prologue — 04/15</span></div>
   </section>
 
   <section class="slide" id="slide-5">
-    <div class="idx">05 / 12</div>
+    <div class="idx">05 / 15</div>
     <div class="ghostnum">05</div>
     <div class="eyebrow">Act I · The Damage</div>
     <h2 class="headline">An outdated brain in a frictionless world.</h2>
@@ -272,57 +273,90 @@
         <div class="label" style="margin:0 auto;">of human history has included the internet.</div>
       </div>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act I — 05/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act I — 05/15</span></div>
   </section>
 
   <section class="slide" id="slide-6">
-    <div class="idx">06 / 12</div>
+    <div class="idx">06 / 15</div>
     <div class="ghostnum">06</div>
     <div class="eyebrow">Act I · The Cost</div>
-    <h2 class="headline">Outsourced memory and direction have a cost.</h2>
-    <div class="grid2">
-      <div>
-        <p class="lede">Tech now does the remembering and navigating brains once had to do. Unused capacity declines — and shows up as restlessness.</p>
-        <div class="card" style="max-width:440px;">
-          <h3>Taxi drivers, bigger brains</h3>
-          <p>Drivers who memorize 25,000 London streets show a measurably larger hippocampus than average.</p>
-          <div class="tag" style="margin-top:10px;">Maguire et al., 2000</div>
-        </div>
+    <h2 class="headline">A brain with nothing to push against starts to break down.</h2>
+    <p class="lede">Offload enough thinking to a phone, and unused capacity doesn't fade quietly. It surfaces as restlessness and anxiety — the modern cost of a mind with no resistance left to push against.</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+      <div class="card">
+        <h3>Taxi drivers, bigger brains</h3>
+        <p>Drivers who memorize 25,000 London streets show a measurably larger hippocampus than average.</p>
+        <div class="tag" style="margin-top:10px;">Maguire et al., 2000</div>
       </div>
-      <svg viewBox="0 0 260 260" width="230" height="230">
-        <path d="M130 40 C80 40 50 80 55 120 C40 130 40 155 60 165 C55 190 75 210 100 205 C110 225 150 225 160 205 C185 210 205 190 200 165 C220 155 220 130 205 120 C210 80 180 40 130 40 Z" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
-        <path d="M95 95 C85 110 85 140 100 160 C90 175 100 190 115 188" fill="none" stroke="var(--gold)" stroke-width="3" opacity="0.9"/>
-      </svg>
+      <div class="card">
+        <h3>The dopamine "seeking" circuit</h3>
+        <p>Dopamine spikes during the hunt, not the reward. Remove the hunt — a real problem to solve — and it flatlines. That flatline feels like emptiness.</p>
+        <div class="tag" style="margin-top:10px;">Berridge &amp; Robinson, "wanting vs. liking"</div>
+      </div>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act I — 06/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act I — 06/15</span></div>
   </section>
-  
-  <section class="slide" id="slide-7"> 
-    <div class="idx">07 / 12</div> 
-    <div class="ghostnum">07</div> 
-    <div class="eyebrow">Act I · The Evidence</div> 
-    <h2 class="headline">"Victory has defeated you."</h2> 
-    <p class="lede">When we engineer all the friction out of our daily routines, our mental hardware loses the ability to handle threats.</p> 
-        <div class="grid2" style="margin-top:4px;"> 
-        <div> 
-            <h3 style="font-size:18px; margin:0 0 10px; color:var(--ember);">Case Study: The 10-Year Trap</h3> 
-            <p style="font-size:14px; color:var(--ink-dim); line-height:1.6; margin:0;"> 
-                Consider a professional who finds a perfectly stable, comfortable role. For a decade, they face no threat to their position, no demand to learn drastically new systems, and no need to hustle.<br><br> 
-                <strong>The hidden cost?</strong> Their adaptability muscle completely atrophies. When a sudden disruption finally occurs—like a reorg or shifting technology—they don't pivot. Because their nervous system has been starved of micro-stressors, it simply freezes in pure anxiety. 
-            </p> 
-        </div> 
-        <div class="card" style="display:flex; flex-direction:column; justify-content:center; text-align:center; padding:24px;"> 
-            <div style="font-size:32px; margin-bottom:12px;">🏢</div> 
-            <h3 style="font-size:16px; color:var(--ink); margin-bottom:8px;">The Comfort Tax</h3> 
-            <p style="font-size:13px; color:var(--ink-dim); margin:0; line-height:1.5;">A decade of unchecked professional safety doesn't make you secure; it makes you incredibly fragile when the environment finally changes.</p> 
-        </div> 
-    </div> 
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act I — Evidence</span></div> 
- </section>
 
   <section class="slide" id="slide-7">
-    <div class="idx">08 / 12</div>
+    <div class="idx">07 / 15</div>
+    <div class="ghostnum">07</div>
+    <div class="eyebrow">Act I · The Stakes</div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <h2 class="headline" style="font-size:38px; max-width:700px;">Comfort doesn't remove hardship. It just delays it — for a moment you don't get to choose.</h2>
+      <p class="lede" style="max-width:560px;">A body that never practiced struggle voluntarily still has to face it eventually: a diagnosis, a layoff, a loss. The only question is whether it's ready when it's no longer optional.</p>
+    </div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act I — 07/15</span></div>
+  </section>
+
+  <section class="slide" id="slide-8">
+    <div class="idx">08 / 15</div>
     <div class="ghostnum">08</div>
+    <div class="eyebrow">Act I · The Evidence</div>
+    <h2 class="headline">Ten years of safety. Zero years of practice.</h2>
+    <p class="lede">Engineer all the friction out of a role, and the adaptability muscle doesn't rest — it atrophies.</p>
+    <div class="grid2" style="margin-top:6px;">
+      <div class="card">
+        <h3>The 10-year trap</h3>
+        <p>A stable, comfortable role for a decade: no threat to the position, no new systems to learn, no need to hustle. Then a reorg or a new platform lands — and the muscle that would've adapted was never used. The nervous system freezes instead of pivoting.</p>
+      </div>
+      <div class="card">
+        <h3>The comfort tax</h3>
+        <p>A decade of unchecked safety doesn't make you secure. It makes you fragile the moment the environment finally changes.</p>
+      </div>
+    </div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act I — 08/15</span></div>
+  </section>
+
+  <section class="slide" id="slide-9">
+    <div class="idx">09 / 15</div>
+    <div class="ghostnum">09</div>
+    <div class="eyebrow">Act II · The Target</div>
+    <h2 class="headline">The goal isn't more hardship. It's the peak of the curve.</h2>
+    <p class="lede">Performance and mood follow a curve, not a line — too little challenge does its own kind of damage.</p>
+    <svg viewBox="0 0 820 195" width="800" height="195" style="margin-top:2px;">
+      <defs>
+        <clipPath id="ydLow"><rect x="0" y="0" width="250" height="200"/></clipPath>
+        <clipPath id="ydMid"><rect x="250" y="0" width="320" height="200"/></clipPath>
+        <clipPath id="ydHigh"><rect x="570" y="0" width="250" height="200"/></clipPath>
+      </defs>
+      <line x1="30" y1="160" x2="800" y2="160" stroke="var(--line)" stroke-width="1"/>
+      <path d="M40,160 C160,160 250,60 410,45 C570,60 660,160 780,160 Z" fill="var(--juniper)" opacity="0.75" clip-path="url(#ydLow)"/>
+      <path d="M40,160 C160,160 250,60 410,45 C570,60 660,160 780,160 Z" fill="var(--gold)" opacity="0.85" clip-path="url(#ydMid)"/>
+      <path d="M40,160 C160,160 250,60 410,45 C570,60 660,160 780,160 Z" fill="var(--ember)" opacity="0.75" clip-path="url(#ydHigh)"/>
+      <path d="M40,160 C160,160 250,60 410,45 C570,60 660,160 780,160" fill="none" stroke="var(--ink)" stroke-width="1.5" opacity="0.5"/>
+      <line x1="410" y1="45" x2="410" y2="160" stroke="var(--ink-dim)" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="410" y="30" font-size="11.5" fill="var(--ink)" font-weight="700" text-anchor="middle">Flow — peak performance</text>
+      <text x="145" y="178" font-size="12" fill="var(--ink-dim)" text-anchor="middle">Too little</text>
+      <text x="410" y="178" font-size="12" fill="var(--ink)" font-weight="700" text-anchor="middle">Optimal</text>
+      <text x="675" y="178" font-size="12" fill="var(--ink-dim)" text-anchor="middle">Too much</text>
+    </svg>
+    <div class="tag">Yerkes–Dodson Law, 1908</div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act II — 09/15</span></div>
+  </section>
+
+  <section class="slide" id="slide-10">
+    <div class="idx">10 / 15</div>
+    <div class="ghostnum">10</div>
     <div class="eyebrow">Act II · The Antidote</div>
     <h2 class="headline">Trick the body into thinking it's still surviving.</h2>
     <p class="lede">The fix: <b style="color:var(--ink)">voluntary hardship</b> — difficulty chosen on purpose, simulating what ancestors faced by necessity.</p>
@@ -332,15 +366,15 @@
       <div class="card"><h3>Now</h3><p>Hardship is gone, so we pay to recreate it.</p></div>
       <div class="card"><h3>Why it works</h3><p>The body can't tell forced from chosen — it responds the same.</p></div>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act II — 07/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act II — 10/15</span></div>
   </section>
 
-  <section class="slide" id="slide-8">
-    <div class="idx">09 / 12</div>
-    <div class="ghostnum">09</div>
+  <section class="slide" id="slide-11">
+    <div class="idx">11 / 15</div>
+    <div class="ghostnum">11</div>
     <div class="eyebrow">Act II · Bought on Purpose</div>
-    <h2 class="headline">The gym, the fast, and the cold plunge.</h2>
-    <div class="grid3">
+    <h2 class="headline">The gym, the fast, the cold plunge, the finish line.</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
       <div class="card">
         <svg class="ic" viewBox="0 0 30 30"><g stroke="var(--ember)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="4" y1="15" x2="26" y2="15"/><line x1="7" y1="9" x2="7" y2="21"/><line x1="23" y1="9" x2="23" y2="21"/></g></svg>
         <h3>Lifting</h3>
@@ -356,13 +390,18 @@
         <h3>Cold plunge</h3>
         <p>Spikes alertness hormones, primes immune response.</p>
       </div>
+      <div class="card">
+        <svg class="ic" viewBox="0 0 30 30"><g stroke="var(--ember)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26 L11 26 L14 19"/><circle cx="17" cy="6" r="2.5" fill="var(--ember)" stroke="none"/><path d="M13 15 L17 9 L21 12 L26 8"/><path d="M13 15 L9 22 L13 24"/></g></svg>
+        <h3>Endurance racing</h3>
+        <p>Hyrox, marathons — pay the entry fee, train for months, buy hours of voluntary suffering with a finish line as the only reward.</p>
+      </div>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act II — 08/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act II — 11/15</span></div>
   </section>
 
-  <section class="slide" id="slide-9">
-    <div class="idx">10 / 12</div>
-    <div class="ghostnum">10</div>
+  <section class="slide" id="slide-12">
+    <div class="idx">12 / 15</div>
+    <div class="ghostnum">12</div>
     <div class="eyebrow">Act II · Chosen on Purpose</div>
     <h2 class="headline">Silence, distance, and slow handwriting.</h2>
     <div class="grid3">
@@ -382,12 +421,12 @@
         <p>Engages more of the brain than typing; aids memory.</p>
       </div>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act II — 09/11</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act II — 12/15</span></div>
   </section>
 
-  <section class="slide" id="slide-10">
-    <div class="idx">11 / 12</div>
-    <div class="ghostnum">11</div>
+  <section class="slide" id="slide-13">
+    <div class="idx">13 / 15</div>
+    <div class="ghostnum">13</div>
     <div class="eyebrow">Act III · An Ancient Answer</div>
     <h2 class="headline">"Kabad" — created into struggle, by design.</h2>
     <p class="lede" style="margin-bottom:18px;"><span class="quote-mark">“</span>We have certainly created man into hardship.<span class="quote-mark">”</span> — Al-Balad 90:4</p>
@@ -412,29 +451,42 @@
         <div class="daybar-axis"><span>00:00</span><span>Imsak → Maghrib · 5 daily prayers marked</span><span>24:00</span></div>
       </div>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act III — 10/11 · times approximate</span></div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Act III — 13/15 · times approximate</span></div>
   </section>
 
-  <section class="slide" id="slide-11">
-    <div class="idx">12 / 12</div>
-    <div class="ghostnum">12</div>
+  <section class="slide" id="slide-14">
+    <div class="idx">14 / 15</div>
+    <div class="ghostnum">14</div>
     <div class="eyebrow">The Choice</div>
-    <h2 class="headline" style="font-size:34px;">The damage is silent. The response can't be.</h2>
-    <p class="lede">Comfort doesn't announce what it costs — it just quietly compounds. Interrupt it on your own terms, before it's forced on you.</p>
+    <h2 class="headline" style="font-size:34px;">Break the loop before it breaks you.</h2>
+    <p class="lede">You're somewhere on that loop right now. The only real choice is whether you interrupt it on your terms — or wait for it to happen on its own.</p>
     <div class="rule"></div>
-    <div class="grid3">
-      <div class="card"><h3>Lift</h3><p>Reintroduce physical resistance.</p></div>
-      <div class="card"><h3>Fast</h3><p>Give the body scheduled restraint.</p></div>
-      <div class="card"><h3>Sit in silence</h3><p>Put the phone down first.</p></div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:6px 0 18px;">
+      <span class="tag">Struggle</span><span style="color:var(--ink-dim);">→</span>
+      <span class="tag">Strength</span><span style="color:var(--ink-dim);">→</span>
+      <span class="tag">Comfort</span><span style="color:var(--ink-dim);">→</span>
+      <span class="tag">Fragility</span><span style="color:var(--ink-dim);">→ …</span>
     </div>
-    <div class="foot"><span>Kesusahan Itu Bagus, Ketika... — Felix Siauw</span><span class="src">youtu.be/hW28-natm4s</span></div>
+    <p style="text-align:center; font-size:17px; font-weight:700; margin:0 auto; max-width:480px;">Which one are you in right now?</p>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">The Choice — 14/15</span></div>
+  </section>
+
+  <section class="slide" id="slide-15">
+    <div class="idx">15 / 15</div>
+    <div class="ghostnum">15</div>
+    <div class="eyebrow">Discussion</div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <p style="font-size:34px; font-weight:800; line-height:1.25; max-width:760px; margin:0 0 14px;"><span class="quote-mark">"</span>Peace has cost you your strength. Victory has defeated you.<span class="quote-mark">"</span></p>
+      <div style="font-size:13px; color:var(--ink-dim);">— Bane, <i>The Dark Knight Rises</i></div>
+    </div>
+    <div class="foot" style="justify-content:flex-end;"><span class="src">Discussion — 15/15</span></div>
   </section>
 
 </div></div>
 
 <div class="navbar">
   <button id="prevBtn" aria-label="Previous slide">&#8592;</button>
-  <span class="counter" id="counter">01 / 12</span>
+  <span class="counter" id="counter">01 / 09</span>
   <button id="nextBtn" aria-label="Next slide">&#8594;</button>
 </div>
 
