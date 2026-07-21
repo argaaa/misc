@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silent Damage of a Frictionless Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --ember:#B5502C;
+    --gold:#C9A227;
+    --juniper:#3E5C52;
+  }
+  html[data-theme="dark"]{
+    --bg:#14120D; --bg-2:#0E0C08; --ink:#F3EEE2; --ink-dim:#B9B2A2;
+    --line: rgba(243,238,226,0.14); --line-strong: rgba(243,238,226,0.28);
+    --card: rgba(243,238,226,0.05); --ghost: rgba(243,238,226,0.05);
+  }
+  html[data-theme="light"]{
+    --bg:#EFE9DA; --bg-2:#DCD3BC; --ink:#211D15; --ink-dim:#6B6250;
+    --line: rgba(33,29,21,0.14); --line-strong: rgba(33,29,21,0.28);
+    --card: rgba(33,29,21,0.04); --ghost: rgba(33,29,21,0.045);
+  }
+  *{box-sizing:border-box;}
+  html,body{ height:100%; margin:0; }
+  body{
+    background:var(--bg-2);
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  .toolbar{ position:fixed; top:16px; right:16px; z-index:60; display:flex; gap:8px; }
+  .toolbar button{
+    font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:.05em;
+    background:var(--bg); color:var(--ink); border:1px solid var(--line-strong);
+    padding:8px 13px; border-radius:999px; cursor:pointer; text-transform:uppercase;
+  }
+  .toolbar button:hover{ border-color:var(--ember); color:var(--ember); }
+
+  .deck{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+  .stage{ width:960px; height:540px; position:relative; transform-origin:center center; }
+
+  .slide{
+    position:absolute; inset:0; width:960px; height:540px;
+    background:var(--bg); overflow:hidden; border:1px solid var(--line);
+    padding:52px 60px; display:none; flex-direction:column;
+    box-shadow:0 30px 80px rgba(0,0,0,0.3);
+  }
+  .slide.active{ display:flex; }
+
+  .ghostnum{
+    position:absolute; right:28px; bottom:-18px; font-size:190px; font-weight:800;
+    color:var(--ghost); line-height:1; letter-spacing:-.04em; z-index:0; user-select:none;
+  }
+  .slide > *:not(.ghostnum):not(.idx){ position:relative; z-index:1; }
+
+  .idx{ position:absolute; top:22px; right:26px; font-size:10.5px; letter-spacing:.12em; color:var(--ink-dim); font-variant-numeric:tabular-nums; z-index:2;}
+  .eyebrow{ font-size:11.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ember); margin:0 0 12px; }
+  h2.headline{ font-size:38px; font-weight:800; line-height:1.08; letter-spacing:-.015em; margin:0 0 14px; max-width:760px; }
+  p.lede{ font-size:16px; line-height:1.5; color:var(--ink-dim); font-weight:400; max-width:600px; margin:0 0 20px; }
+  .quote-mark{ color:var(--gold); font-weight:800; }
+  .rule{ height:1px; background:var(--line); width:100%; margin:16px 0; }
+  .foot{ margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end; font-size:10.5px; color:var(--ink-dim); letter-spacing:.05em; }
+  .foot .src{ text-transform:uppercase; }
+
+  /* Slide 1 */
+  .s1-wrap{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .s1-eyebrow{ font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:20px;}
+  .s1-title{ font-size:52px; font-weight:800; line-height:1.05; letter-spacing:-.015em; max-width:480px; margin:0 0 20px;}
+  .s1-title em{ font-style:normal; color:var(--ember); }
+  .s1-sub{ font-size:16px; color:var(--ink-dim); max-width:440px; line-height:1.5; margin:0 0 26px;}
+  .s1-byline{ font-size:12.5px; font-weight:600; letter-spacing:.03em; }
+  .s1-byline span{ color:var(--ink-dim); font-weight:400; }
+
+  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .grid2{ display:grid; grid-template-columns:1.05fr .95fr; gap:34px; align-items:center; }
+  .card{ border:1px solid var(--line); background:var(--card); padding:18px 16px; }
+  .card .ic{ width:26px; height:26px; margin-bottom:12px; }
+  .card h3{ font-size:14px; font-weight:700; margin:0 0 6px; }
+  .card p{ font-size:12.5px; line-height:1.45; color:var(--ink-dim); margin:0; }
+
+  .bignum{ font-size:96px; font-weight:800; letter-spacing:-.02em; color:var(--ember); line-height:1; }
+  .bignum + .label{ font-size:14px; color:var(--ink-dim); margin-top:8px; max-width:360px; }
+
+  .bulletlist{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .bulletlist li{ font-size:14.5px; line-height:1.45; padding-left:18px; position:relative; }
+  .bulletlist li::before{ content:""; position:absolute; left:0; top:8px; width:8px; height:1px; background:var(--ember); }
+  .bulletlist b{ font-weight:700; }
+
+  /* bar chart - slide 3 */
+  .barrow{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .barlabel{ width:150px; font-size:12px; color:var(--ink-dim); flex-shrink:0; text-align:right; }
+  .bartrack{ flex:1; height:14px; background:var(--line); position:relative; }
+  .barfill{ height:100%; background:var(--gold); }
+  .barfill.hot{ background:var(--ember); }
+  .barval{ font-size:12px; font-weight:700; width:74px; flex-shrink:0; }
+
+  /* day bar - slide 8 */
+  .daybar-wrap{ display:flex; flex-direction:column; gap:16px; }
+  .daybar-row .caption{ font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; margin-bottom:6px; color:var(--ink-dim); }
+  .daybar{ position:relative; height:22px; background:var(--line); }
+  .daybar .seg{ position:absolute; top:0; bottom:0; }
+  .daybar .seg.juniper{ background:var(--juniper); }
+  .daybar .seg.gold{ background:var(--gold); }
+  .daybar .dot{ position:absolute; top:-4px; width:6px; height:6px; border-radius:50%; background:var(--ink); }
+  .daybar-axis{ display:flex; justify-content:space-between; font-size:10px; color:var(--ink-dim); margin-top:4px; }
+  .seg-label{ font-size:11.5px; font-weight:700; margin-left:2px; }
+
+  .tag{ display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; border:1px solid var(--line-strong); padding:4px 9px; border-radius:999px; color:var(--ink-dim); }
+
+  .navbar{ position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:60; display:flex; align-items:center; gap:14px; background:var(--bg); border:1px solid var(--line-strong); padding:8px 10px; border-radius:999px; }
+  .navbar button{ width:32px; height:32px; border-radius:50%; border:1px solid var(--line-strong); background:transparent; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .navbar button:hover{ border-color:var(--ember); color:var(--ember); }
+  .navbar button:disabled{ opacity:.3; cursor:default; }
+  .navbar .counter{ font-size:11.5px; letter-spacing:.05em; color:var(--ink-dim); font-variant-numeric:tabular-nums; min-width:50px; text-align:center; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button id="themeBtn">Light mode</button>
+  <button id="downloadAll">Download all (PNG)</button>
+</div>
+
+<div class="deck"><div class="stage" id="stage">
+
+  <section class="slide active" id="slide-1">
+    <div class="idx">01 / 11</div>
+    <svg width="360" height="540" viewBox="0 0 360 540" style="position:absolute; right:0; top:0; z-index:0;">
+      <path d="M40 460 L120 300 L160 360 L230 180 L270 260 L360 60 L360 540 L40 540 Z" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+      <path d="M40 460 L120 300 L160 360 L230 180 L270 260 L360 60" fill="none" stroke="var(--ink-dim)" stroke-width="1.5"/>
+      <!-- ascent path, dashed -->
+      <path d="M60 500 C 100 420, 140 380, 165 355 C 195 300, 215 230, 232 182" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="1 8" stroke-linecap="round"/>
+      <!-- climbing figure near summit -->
+      <g transform="translate(224,168)" stroke="var(--ember)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="8" cy="0" r="4.5" fill="var(--ember)" stroke="none"/>
+        <path d="M8 5 L6 20 M6 20 L-2 32 M6 20 L14 30 M8 9 L-3 15 M8 9 L18 4"/>
+      </g>
+      <circle cx="232" cy="182" r="3" fill="var(--gold)"/>
+    </svg>
+    <div class="ghostnum">01</div>
+    <div class="s1-wrap">
+      <div class="s1-eyebrow">A Summary — Felix Siauw</div>
+      <h1 class="s1-title">The <em>silent damage</em> of a frictionless life.</h1>
+      <p class="s1-sub">Modern comfort feels harmless. It isn't. Science and 14 centuries of Islamic practice agree on what it's quietly costing you — and the fix.</p>
+      <div class="s1-byline">Kesusahan Itu Bagus, Ketika... <span>· youtu.be/hW28-natm4s</span></div>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-2">
+    <div class="idx">02 / 11</div>
+    <div class="ghostnum">02</div>
+    <div class="eyebrow">Prologue · The Comfort Trap</div>
+    <h2 class="headline">We live better than kings — and it's making us weaker.</h2>
+    <p class="lede">No ancient king had instant heat, food on demand, or answers in seconds. That ease is de-training us.</p>
+    <div class="rule"></div>
+    <div class="bignum">ZERO</div>
+    <div class="label">frictions left in a day spent in climate-controlled rooms, fed by delivery, guided by GPS.</div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Prologue — 02/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-3">
+    <div class="idx">03 / 11</div>
+    <div class="ghostnum">03</div>
+    <div class="eyebrow">Prologue · The Individual Loop</div>
+    <h2 class="headline">The paradox: struggle builds the comfort that unravels it.</h2>
+    <p class="lede">Effort produces strength. Strength produces comfort. Comfort produces fragility. Fragility forces effort again.</p>
+    <div style="display:flex; gap:40px; align-items:center; flex:1;">
+      <svg width="250" height="250" viewBox="0 0 380 380" style="flex-shrink:0;">
+        <defs>
+          <marker id="arrowA" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ember)"/>
+          </marker>
+        </defs>
+        <path d="M 190 50 A 140 140 0 0 1 330 190" fill="none" stroke="var(--ember)" stroke-width="2.5" opacity="0.75" marker-end="url(#arrowA)"/>
+        <path d="M 330 190 A 140 140 0 0 1 190 330" fill="none" stroke="var(--ember)" stroke-width="2.5" opacity="0.75" marker-end="url(#arrowA)"/>
+        <path d="M 190 330 A 140 140 0 0 1 50 190" fill="none" stroke="var(--ember)" stroke-width="2.5" opacity="0.75" marker-end="url(#arrowA)"/>
+        <path d="M 50 190 A 140 140 0 0 1 190 50" fill="none" stroke="var(--ember)" stroke-width="2.5" opacity="0.75" marker-end="url(#arrowA)"/>
+        <g>
+          <circle cx="190" cy="50" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="190" y="55" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">Struggle</text>
+          <circle cx="330" cy="190" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="330" y="195" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">Strength</text>
+          <circle cx="190" cy="330" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="190" y="335" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">Comfort</text>
+          <circle cx="50" cy="190" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="50" y="195" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">Fragility</text>
+        </g>
+      </svg>
+      <ul class="bulletlist" style="gap:16px;">
+        <li><b>1 · Struggle</b> — forces adaptation, no shortcuts.</li>
+        <li><b>2 · Strength</b> — capability earned through friction.</li>
+        <li><b>3 · Comfort</b> — the reward strength makes possible.</li>
+        <li><b>4 · Fragility</b> — comfort left unchecked, erodes it. Back to 1.</li>
+      </ul>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Prologue — 03/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-4">
+    <div class="idx">04 / 11</div>
+    <div class="ghostnum">04</div>
+    <div class="eyebrow">Prologue · The Generational Loop</div>
+    <h2 class="headline">Zoom out, and the pattern repeats across generations.</h2>
+    <p class="lede">Hardship produces strong people. Strong people build good times. Good times raise weak people. Weak people bring hardship again.</p>
+    <div style="display:flex; gap:40px; align-items:center; flex:1;">
+      <svg width="250" height="250" viewBox="0 0 380 380" style="flex-shrink:0;">
+        <defs>
+          <marker id="arrowB" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--gold)"/>
+          </marker>
+        </defs>
+        <path d="M 190 50 A 140 140 0 0 1 330 190" fill="none" stroke="var(--gold)" stroke-width="2.5" opacity="0.8" marker-end="url(#arrowB)"/>
+        <path d="M 330 190 A 140 140 0 0 1 190 330" fill="none" stroke="var(--gold)" stroke-width="2.5" opacity="0.8" marker-end="url(#arrowB)"/>
+        <path d="M 190 330 A 140 140 0 0 1 50 190" fill="none" stroke="var(--gold)" stroke-width="2.5" opacity="0.8" marker-end="url(#arrowB)"/>
+        <path d="M 50 190 A 140 140 0 0 1 190 50" fill="none" stroke="var(--gold)" stroke-width="2.5" opacity="0.8" marker-end="url(#arrowB)"/>
+        <g>
+          <circle cx="190" cy="50" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="190" y="49" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">Hardship</text>
+          <circle cx="330" cy="190" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="330" y="187" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">Strong</text>
+          <text x="330" y="203" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">People</text>
+          <circle cx="190" cy="330" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="190" y="335" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">Good Times</text>
+          <circle cx="50" cy="190" r="44" fill="var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="50" y="187" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">Weak</text>
+          <text x="50" y="203" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">People</text>
+        </g>
+      </svg>
+      <div>
+        <ul class="bulletlist" style="gap:16px; margin-bottom:16px;">
+          <li>Each stage isn't a single event — it's a <b>generation's</b> worth of drift, roughly 20–30 years.</li>
+          <li>Nobody chooses which stage they're born into. Only how they respond to it.</li>
+        </ul>
+        <div class="tag">cf. Strauss–Howe generational theory</div>
+      </div>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Prologue — 04/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-5">
+    <div class="idx">05 / 11</div>
+    <div class="ghostnum">05</div>
+    <div class="eyebrow">Act I · The Damage</div>
+    <h2 class="headline">An outdated brain in a frictionless world.</h2>
+    <p class="lede">This is where the damage starts: a brain built for hardship, running on decades of comfort it was never designed for.</p>
+    <div class="grid2">
+      <div>
+        <div class="barrow">
+          <div class="barlabel">Homo sapiens</div>
+          <div class="bartrack"><div class="barfill" style="width:100%"></div></div>
+          <div class="barval">300,000 yrs</div>
+        </div>
+        <div class="barrow">
+          <div class="barlabel">Agriculture</div>
+          <div class="bartrack"><div class="barfill" style="width:4%"></div></div>
+          <div class="barval">12,000 yrs</div>
+        </div>
+        <div class="barrow">
+          <div class="barlabel">Modern comfort</div>
+          <div class="bartrack"><div class="barfill hot" style="width:0.5%; min-width:4px;"></div></div>
+          <div class="barval">~30 yrs</div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <div class="bignum" style="font-size:76px;">0.01%</div>
+        <div class="label" style="margin:0 auto;">of human history has included the internet.</div>
+      </div>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act I — 05/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-6">
+    <div class="idx">06 / 11</div>
+    <div class="ghostnum">06</div>
+    <div class="eyebrow">Act I · The Cost</div>
+    <h2 class="headline">Outsourced memory and direction have a cost.</h2>
+    <div class="grid2">
+      <div>
+        <p class="lede">Tech now does the remembering and navigating brains once had to do. Unused capacity declines — and shows up as restlessness.</p>
+        <div class="card" style="max-width:440px;">
+          <h3>Taxi drivers, bigger brains</h3>
+          <p>Drivers who memorize 25,000 London streets show a measurably larger hippocampus than average.</p>
+          <div class="tag" style="margin-top:10px;">Maguire et al., 2000</div>
+        </div>
+      </div>
+      <svg viewBox="0 0 260 260" width="230" height="230">
+        <path d="M130 40 C80 40 50 80 55 120 C40 130 40 155 60 165 C55 190 75 210 100 205 C110 225 150 225 160 205 C185 210 205 190 200 165 C220 155 220 130 205 120 C210 80 180 40 130 40 Z" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M95 95 C85 110 85 140 100 160 C90 175 100 190 115 188" fill="none" stroke="var(--gold)" stroke-width="3" opacity="0.9"/>
+      </svg>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act I — 06/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-7">
+    <div class="idx">07 / 11</div>
+    <div class="ghostnum">07</div>
+    <div class="eyebrow">Act II · The Antidote</div>
+    <h2 class="headline">Trick the body into thinking it's still surviving.</h2>
+    <p class="lede">The fix: <b style="color:var(--ink)">voluntary hardship</b> — difficulty chosen on purpose, simulating what ancestors faced by necessity.</p>
+    <div class="rule"></div>
+    <div class="grid3">
+      <div class="card"><h3>Then</h3><p>Hardship was forced — hunting, walking, scarcity.</p></div>
+      <div class="card"><h3>Now</h3><p>Hardship is gone, so we pay to recreate it.</p></div>
+      <div class="card"><h3>Why it works</h3><p>The body can't tell forced from chosen — it responds the same.</p></div>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act II — 07/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-8">
+    <div class="idx">08 / 11</div>
+    <div class="ghostnum">08</div>
+    <div class="eyebrow">Act II · Bought on Purpose</div>
+    <h2 class="headline">The gym, the fast, and the cold plunge.</h2>
+    <div class="grid3">
+      <div class="card">
+        <svg class="ic" viewBox="0 0 30 30"><g stroke="var(--ember)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="4" y1="15" x2="26" y2="15"/><line x1="7" y1="9" x2="7" y2="21"/><line x1="23" y1="9" x2="23" y2="21"/></g></svg>
+        <h3>Lifting</h3>
+        <p>Micro-tears in muscle rebuild stronger — engineered labor.</p>
+      </div>
+      <div class="card">
+        <svg class="ic" viewBox="0 0 30 30"><circle cx="15" cy="15" r="11" stroke="var(--ember)" stroke-width="2" fill="none"/><line x1="15" y1="15" x2="15" y2="8" stroke="var(--ember)" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3>Fasting</h3>
+        <p>Triggers autophagy — cellular cleanup, 2016 Nobel Prize work.</p>
+      </div>
+      <div class="card">
+        <svg class="ic" viewBox="0 0 30 30"><g stroke="var(--ember)" stroke-width="2" stroke-linecap="round"><line x1="15" y1="3" x2="15" y2="27"/><line x1="5" y1="9" x2="25" y2="21"/><line x1="25" y1="9" x2="5" y2="21"/></g></svg>
+        <h3>Cold plunge</h3>
+        <p>Spikes alertness hormones, primes immune response.</p>
+      </div>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act II — 08/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-9">
+    <div class="idx">09 / 11</div>
+    <div class="ghostnum">09</div>
+    <div class="eyebrow">Act II · Chosen on Purpose</div>
+    <h2 class="headline">Silence, distance, and slow handwriting.</h2>
+    <div class="grid3">
+      <div class="card">
+        <svg class="ic" viewBox="0 0 30 30"><circle cx="15" cy="15" r="11" stroke="var(--ember)" stroke-width="2" fill="none"/><circle cx="15" cy="15" r="4" stroke="var(--ember)" stroke-width="2" fill="none"/></svg>
+        <h3>Meditation</h3>
+        <p>Lowers reactivity in the brain's fear center over time.</p>
+      </div>
+      <div class="card">
+        <svg class="ic" viewBox="0 0 30 30"><rect x="9" y="4" width="12" height="22" rx="2" stroke="var(--ember)" stroke-width="2" fill="none"/><line x1="6" y1="6" x2="24" y2="24" stroke="var(--ember)" stroke-width="2" stroke-linecap="round" opacity="0.7"/></svg>
+        <h3>Digital detox</h3>
+        <p>Removes micro-rewards that fragment attention.</p>
+      </div>
+      <div class="card">
+        <svg class="ic" viewBox="0 0 30 30"><path d="M6 24 L20 10 L24 14 L10 28 L6 28 Z" stroke="var(--ember)" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>
+        <h3>Handwriting</h3>
+        <p>Engages more of the brain than typing; aids memory.</p>
+      </div>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act II — 09/11</span></div>
+  </section>
+
+  <section class="slide" id="slide-10">
+    <div class="idx">10 / 11</div>
+    <div class="ghostnum">10</div>
+    <div class="eyebrow">Act III · An Ancient Answer</div>
+    <h2 class="headline">"Kabad" — created into struggle, by design.</h2>
+    <p class="lede" style="margin-bottom:18px;"><span class="quote-mark">“</span>We have certainly created man into hardship.<span class="quote-mark">”</span> — Al-Balad 90:4</p>
+    <div class="daybar-wrap">
+      <div class="daybar-row">
+        <div class="caption">Night — Tahajjud</div>
+        <div class="daybar">
+          <div class="seg juniper" style="left:8.3%; width:12.5%;"></div>
+        </div>
+        <div class="daybar-axis"><span>00:00</span><span>Tahajjud (pre-dawn)</span><span>12:00</span></div>
+      </div>
+      <div class="daybar-row">
+        <div class="caption">Day — Ramadan fasting window</div>
+        <div class="daybar">
+          <div class="seg gold" style="left:18.7%; width:56.3%;"></div>
+          <div class="dot" style="left:20.8%;"></div>
+          <div class="dot" style="left:50%;"></div>
+          <div class="dot" style="left:64.6%;"></div>
+          <div class="dot" style="left:75%;"></div>
+          <div class="dot" style="left:81.3%;"></div>
+        </div>
+        <div class="daybar-axis"><span>00:00</span><span>Imsak → Maghrib · 5 daily prayers marked</span><span>24:00</span></div>
+      </div>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika...</span><span class="src">Act III — 10/11 · times approximate</span></div>
+  </section>
+
+  <section class="slide" id="slide-11">
+    <div class="idx">11 / 11</div>
+    <div class="ghostnum">11</div>
+    <div class="eyebrow">The Choice</div>
+    <h2 class="headline" style="font-size:34px;">The damage is silent. The response can't be.</h2>
+    <p class="lede">Comfort doesn't announce what it costs — it just quietly compounds. Interrupt it on your own terms, before it's forced on you.</p>
+    <div class="rule"></div>
+    <div class="grid3">
+      <div class="card"><h3>Lift</h3><p>Reintroduce physical resistance.</p></div>
+      <div class="card"><h3>Fast</h3><p>Give the body scheduled restraint.</p></div>
+      <div class="card"><h3>Sit in silence</h3><p>Put the phone down first.</p></div>
+    </div>
+    <div class="foot"><span>Kesusahan Itu Bagus, Ketika... — Felix Siauw</span><span class="src">youtu.be/hW28-natm4s</span></div>
+  </section>
+
+</div></div>
+
+<div class="navbar">
+  <button id="prevBtn" aria-label="Previous slide">&#8592;</button>
+  <span class="counter" id="counter">01 / 09</span>
+  <button id="nextBtn" aria-label="Next slide">&#8594;</button>
+</div>
+
+<script>
+  // fit stage to viewport so nothing is ever cropped
+  const stage = document.getElementById('stage');
+  function fitStage(){
+    const scale = Math.min((window.innerWidth-40)/960, (window.innerHeight-110)/540, 1.15);
+    stage.style.transform = 'scale(' + scale + ')';
+  }
+  window.addEventListener('resize', fitStage);
+  fitStage();
+
+  // click-through navigation
+  (function(){
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counter = document.getElementById('counter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let idx = 0;
+    function render(){
+      slides.forEach((s,i)=> s.classList.toggle('active', i===idx));
+      counter.textContent = String(idx+1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+      prevBtn.disabled = idx===0;
+      nextBtn.disabled = idx===slides.length-1;
+    }
+    function go(n){ idx = Math.max(0, Math.min(slides.length-1, idx+n)); render(); }
+    prevBtn.addEventListener('click', ()=>go(-1));
+    nextBtn.addEventListener('click', ()=>go(1));
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowRight' || e.key===' ') go(1);
+      if(e.key==='ArrowLeft') go(-1);
+    });
+    render();
+  })();
+
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  function setTheme(t){ root.setAttribute('data-theme', t); themeBtn.textContent = t === 'dark' ? 'Light mode' : 'Dark mode'; }
+  setTheme('dark');
+  themeBtn.addEventListener('click', ()=>{ setTheme(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); });
+
+  document.getElementById('downloadAll').addEventListener('click', async ()=>{
+    const slides = document.querySelectorAll('.slide');
+    const wasActive = Array.from(slides).findIndex(s=>s.classList.contains('active'));
+    for(let i=0;i<slides.length;i++){
+      slides.forEach((s,j)=> s.classList.toggle('active', i===j));
+      await new Promise(r=>setTimeout(r,60));
+      const canvas = await html2canvas(slides[i], {backgroundColor:null, scale:2});
+      const link = document.createElement('a');
+      link.download = 'slide-' + String(i+1).padStart(2,'0') + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      await new Promise(r=>setTimeout(r,250));
+    }
+    slides.forEach((s,j)=> s.classList.toggle('active', j===wasActive));
+  });
+</script>
+</body>
+</html>
