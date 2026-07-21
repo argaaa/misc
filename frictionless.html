@@ -122,6 +122,7 @@
 <body>
 
 <div class="toolbar">
+  <button id="fullscreenBtn">Enlarge</button>
   <button id="themeBtn">Light mode</button>
   <button id="downloadAll">Download all (PNG)</button>
 </div>
@@ -418,11 +419,26 @@
   // fit stage to viewport so nothing is ever cropped
   const stage = document.getElementById('stage');
   function fitStage(){
-    const scale = Math.min((window.innerWidth-40)/960, (window.innerHeight-110)/540, 1.15);
+    const cap = document.fullscreenElement ? 2.4 : 1.15;
+    const scale = Math.min((window.innerWidth-40)/960, (window.innerHeight-110)/540, cap);
     stage.style.transform = 'scale(' + scale + ')';
   }
   window.addEventListener('resize', fitStage);
+  document.addEventListener('fullscreenchange', fitStage);
   fitStage();
+
+  // fullscreen / enlarge toggle
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  fullscreenBtn.addEventListener('click', ()=>{
+    if(!document.fullscreenElement){
+      document.documentElement.requestFullscreen().catch(()=>{});
+    } else {
+      document.exitFullscreen();
+    }
+  });
+  document.addEventListener('fullscreenchange', ()=>{
+    fullscreenBtn.textContent = document.fullscreenElement ? 'Exit fullscreen' : 'Enlarge';
+  });
 
   // click-through navigation
   (function(){
